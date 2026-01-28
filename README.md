@@ -58,6 +58,7 @@ hack-puzzle/
 ├── vercel.json           # Vercel 設定檔
 ├── CONTRIBUTING.md       # 團隊協作指南
 └── README.md             # 本文件
+```
 🚀 快速開始
 環境需求
 Node.js v18+
@@ -65,60 +66,56 @@ Node.js v18+
 Vercel CLI (全域安裝: npm i -g vercel)
 
 安裝步驟
-bash
+```bash
 # Clone 專案
 git clone https://github.com/Q3goldlegeng/hackathon_puzzle_site.git
 cd hack-puzzle
-
+```
 # 安裝後端依賴
+```bash
 npm install
-
+```
 # 安裝前端依賴
+```bash
 cd client
 npm install
 cd ..
-本地開發
+```
+# 本地開發
 方法 A：一鍵啟動 (Windows 推薦 ⭐)
 直接雙擊根目錄下的 deploy_local.bat，或者在終端機執行：
 
-text
+```bash
 .\deploy_local.bat
 (此腳本會自動執行 Build 前端 → 搬運檔案 → 啟動伺服器)
-
+```
 方法 B：手動啟動 (Mac/Linux)
 bash
 # 打包前端
+```bash
 cd client && npm run build && cd ..
+```
 
 # 複製檔案至 public
+```bash
 rm -rf public && mkdir public
 cp -r client/dist/* public/
+```
 
 # 啟動 Vercel 開發環境
+```bash
 vercel dev
+```
 啟動後，請打開瀏覽器訪問：👉 http://localhost:3000
 
 🎮 遊玩說明
 閱讀任務：仔細閱讀終端機顯示的劇情與提示
-
 輸入答案：在下方游標處輸入你的答案（格式：全小寫、無空格）
-
 送出確認：按下 Enter 鍵送出
-
 解鎖進度：答對即可進入下一關，答錯會收到錯誤提示
-
 使用筆記：點擊右上角 [OPEN_NOTES] 開啟筆記本記錄線索
-
 通關條件：完成 Day 1 (Q1-Q6) 後，將自動解鎖 Day 2 (Q7-Q10)
-
-隱藏彩蛋 🥚
-試著輸入以下指令看看會發生什麼事：
-
-help - 顯示提示
-
-clear - 清空畫面
-
-whoami - 顯示目前用戶身分
+隱藏彩蛋 🥚試著輸入以下指令看看會發生什麼事：help - 顯示提示clear - 清空畫面whoami - 顯示目前用戶身分(未完成)
 
 🛠️ 開發指南
 新增關卡
@@ -137,33 +134,6 @@ const PUZZLE_DATA = {
 
 打字速度：調整 <Typewriter /> 組件中的 speed 參數
 
-🤝 參與貢獻
-歡迎提交 PR！請務必先閱讀 CONTRIBUTING.md 以了解：
-
-分支命名規範 (feature/*, fix/*)
-
-Pull Request 流程
-
-Commit Message 格式
-
-快速貢獻流程
-bash
-# 建立新功能分支
-git checkout -b feature/new-puzzle
-
-# 修改程式碼並提交
-git add .
-git commit -m "feat: 新增第 11 關劇情"
-
-# 推送並發起 PR
-git push -u origin feature/new-puzzle
-📜 授權條款
-本專案採用 MIT License 授權 - 詳見 LICENSE 文件。
-
-🙏 特別感謝
-靈感來源：經典駭客解謎遊戲 (WarGames, Uplink)
-
-專案目標：提供黑客松團隊學習全端開發的最佳範本
 
 致謝：感謝所有參與測試與貢獻的夥伴！🚀
 
