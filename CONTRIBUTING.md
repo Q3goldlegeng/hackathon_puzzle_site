@@ -36,65 +36,74 @@ git checkout -b feature/puzzle-01-story
 ### Step 2：編輯題目檔案
 請在 client/src/puzzles/ 資料夾下，新增或修改對應的 Markdown 檔案。
 例如：client/src/puzzles/p01.md
+```bash
+ 題目範本：
+# 第 1 關：啟動序列
 
-            題目範本：
-                # 第 1 關：啟動序列
+## 劇情
+系統遭到入侵，你必須輸入正確的啟動密碼才能進入下一階段。
 
-            ## 劇情
-            系統遭到入侵，你必須輸入正確的啟動密碼才能進入下一階段。
+## 任務
+請輸入 5 個字母的英文單字（全小寫）。
 
-            ## 任務
-            請輸入 5 個字母的英文單字（全小寫）。
+## 提示
+- 提示 1：這個詞與「開始」有關
+- 提示 2：start
 
-            ## 提示
-            - 提示 1：這個詞與「開始」有關
-            - 提示 2：start
+## 答案格式
+全小寫，無空格           
 
-            ## 答案格式
-            全小寫，無空格
-
-
+```
 
 ### Step 3：提交與推送
-bash
+```bash
 git add .
 git commit -m "add: puzzle 1 story"
 git push -u origin feature/puzzle-01-story
+```
 ### Step 4：開 Pull Request
+```bash
     到 GitHub 專案頁面。
     點擊 "Compare & pull request"。
     Base branch 選擇 dev。
     填寫 PR 描述（例如：「新增第 1 關劇情與提示」）。
     等待團隊審核後合併。
+```
 
 💻 開發者流程 (Developers)
 適用對象： 負責實作驗證邏輯、UI 調整、Bug 修復。
 
 Workflow | 工作流程
 從 dev 分支建立功能分支：
-
+```bash
 git checkout dev
 git pull origin dev
 git checkout -b feature/puzzle-01-verify
+```
 修改後端驗證邏輯 (api/index.js)：
 
-"""javascript
+```javascript
 const PUZZLE_DATA = {
   "1-1": { answer: "start", next: "1-2" },
   // 新增關卡請依照此格式...
 };
-"""
-本地測試：
+```
+# 本地測試：
 
-bash
+```bash
 .\dev.bat  # Windows
-# 或手動執行 vercel dev
+```
+# 或手動執行 
+```bash 
+vercel dev 
+```
 提交更改：
 
-bash
+```bash
 git add .
 git commit -m "feat: add puzzle 1 verify logic"
 git push -u origin feature/puzzle-01-verify
+```
 發起 PR 到 dev 分支，等待 Code Review。
 
 ✍️ Commit Message 規範
@@ -108,20 +117,14 @@ style:	UI/CSS 調整	style: improve terminal color scheme
 refactor:	重構程式碼	refactor: extract verify logic to utils
 🔍 Code Review Checklist
 提交 PR 前，請自我檢查：
-
- 分支名稱符合規範（feature/* 或 fix/*）
-
- Commit message 清楚描述改動
-
- 本地測試通過（vercel dev 正常運作）
-
- 沒有將 node_modules 或 .vercel 加入 Git
-
- PR 描述說明了「改了什麼」與「為什麼改」
+分支名稱符合規範（feature/* 或 fix/*）
+Commit message 清楚描述改動
+本地測試通過（vercel dev 正常運作）
+沒有將 node_modules 或 .vercel 加入 Git
+PR 描述說明了「改了什麼」與「為什麼改」
 
 📚 參考資源
-Git 共同協作開發教學
-
+Git 共同協作開發教學 https://medium.com/%E9%96%8B%E7%99%BC%E9%9A%A8%E7%AD%86/git-%E5%85%B1%E5%90%8C%E5%8D%94%E4%BD%9C%E9%96%8B%E7%99%BC-adac8ed2e949
 GitHub Pull Request 官方文件
 
 Vercel Serverless Functions 文件
