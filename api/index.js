@@ -1,40 +1,46 @@
-// api/index.js
-// 這是一個最簡單的 Express 進入點
 const app = require('express')();
 const bodyParser = require('body-parser');
 
 app.use(bodyParser.json());
 
-// 測試路由
-app.get('/api', (req, res) => {
-  res.setHeader('Content-Type', 'text/html');
-  res.setHeader('Cache-Control', 's-max-age=1, stale-while-revalidate');
-  res.end(`Hello! Backend is alive.`);
-});
+// 🏆 關卡資料庫 (Day 1: Q1-Q6, Day 2: Q7-Q10)
+const PUZZLE_DATA = {
+  // --- Day 1 ---
+  "1-1": { answer: "start", next: "1-2" },
+  "1-2": { answer: "hello", next: "1-3" },
+  "1-3": { answer: "world", next: "1-4" },
+  "1-4": { answer: "hack", next: "1-5" },
+  "1-5": { answer: "code", next: "1-6" },
+  "1-6": { answer: "day1clear", next: "2-7" }, // Day 1 結束，跳 Day 2
 
-// 解謎驗證路由 (核心功能)
+  // --- Day 2 ---
+  "2-7": { answer: "day2start", next: "2-8" },
+  "2-8": { answer: "matrix", next: "2-9" },
+  "2-9": { answer: "neo", next: "2-10" },
+  "2-10": { answer: "zion", next: "END" } // 全部通關
+};
+
 app.post('/api/verify', (req, res) => {
   const { puzzleId, answer } = req.body;
-
-  // 暫時的答案庫 (之後可以移到獨立 JSON 檔)
-  // 注意：實際答案最好經過處理，不要明文，但 Day 1 先求有
-  const ANSWERS = {
-    "1": "start",
-    "2": "hello_world"
-  };
-
+  
   if (!puzzleId || !answer) {
-    return res.status(400).json({ error: "Missing input" });
+    return res.json({ success: false, message: "Missing input" });
   }
 
-  // 簡單的驗證邏輯
-  // 轉小寫並去空白，增加容錯率
-  const cleanAnswer = answer.toString().toLowerCase().trim();
-  
-  if (ANSWERS[puzzleId] === cleanAnswer) {
-    return res.json({ success: true, nextLevel: parseInt(puzzleId) + 1 });
+  // 標準化答案 (轉小寫 + 去空白)
+  const cleanAnswer = String(answer).toLowerCase().trim();
+  const puzzle = PUZZLE_DATA[puzzleId];
+
+  // 1. 檢查關卡是否存在
+  if (!puzzle) {
+    return res.json({ success: false, message: "Invalid Puzzle ID" });
+  }
+
+  // 2. 驗證答案
+  if (puzzle.answer === cleanAnswer) {
+    res.json({ success: true, nextLevel: puzzle.next });
   } else {
-    return res.json({ success: false, message: "Wrong answer!" });
+    res.json({ success: false, message: "Wrong Answer" });
   }
 });
 
