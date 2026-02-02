@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HACK_PUZZLE_V3.0</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-wrapper">
+        <div class="terminal-container">
+            <div class="terminal-header">
+                <div class="traffic-lights">
+                    <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+                </div>
+                <span class="title" id="header-title">HACK_PUZZLE_V3.0 // 1-1</span>
+                <button class="notepad-btn" id="notepad-toggle">[OPEN_NOTES]</button>
+            </div>
+            
+            <div class="level-info" id="level-info">CURRENT_TASK: [ DAY 1 | QUESTION 1 ]</div>
+
+            <div class="terminal-body" id="terminal-body">
+                <!-- Log 內容由 JS 動態生成 -->
+            </div>
+            
+            <form id="console-form" class="input-line">
+                <span class="prompt">$</span>
+                <input type="text" id="user-input" autocomplete="off" placeholder="TYPE_ANSWER..." autofocus>
+            </form>
+        </div>
+
+        <div class="notepad-container hidden" id="notepad">
+            <div class="notepad-header">// SECRET_NOTES //</div>
+            <textarea placeholder="Type your clues here..."></textarea>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

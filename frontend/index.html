@@ -6,34 +6,18 @@
     <title>HACK_PUZZLE_V3.0</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
-    <div class="app-wrapper">
-        <div class="terminal-container">
-            <div class="terminal-header">
-                <div class="traffic-lights">
-                    <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
-                </div>
-                <span class="title" id="header-title">HACK_PUZZLE_V3.0 // 1-1</span>
-                <button class="notepad-btn" id="notepad-toggle">[OPEN_NOTES]</button>
-            </div>
-            
-            <div class="level-info" id="level-info">CURRENT_TASK: [ DAY 1 | QUESTION 1 ]</div>
-
-            <div class="terminal-body" id="terminal-body">
-                <!-- Log 內容由 JS 動態生成 -->
-            </div>
-            
-            <form id="console-form" class="input-line">
-                <span class="prompt">$</span>
-                <input type="text" id="user-input" autocomplete="off" placeholder="TYPE_ANSWER..." autofocus>
-            </form>
-        </div>
-
-        <div class="notepad-container hidden" id="notepad">
-            <div class="notepad-header">// SECRET_NOTES //</div>
-            <textarea placeholder="Type your clues here..."></textarea>
-        </div>
+<div class="terminal-header">
+    <div class="traffic-lights">...</div>
+    <span class="title" id="header-title">HACK_PUZZLE_V3.0 // 1-1</span>
+    
+    <!-- 新增：使用者狀態區 (放在記事本按鈕左邊) -->
+    <div id="user-status" style="margin-right: 15px; color: #00ff41; font-size: 14px;">
+        [GUEST]
     </div>
-    <script src="script.js"></script>
-</body>
-</html>
+    <button id="login-btn" class="notepad-btn" style="margin-right: 10px;">[LOGIN]</button>
+
+    <button class="notepad-btn" id="notepad-toggle">[OPEN_NOTES]</button>
+</div>
+
+<!-- ⚠️ 重要：加上 type="module" -->
+<script type="module" src="script.js"></script>
