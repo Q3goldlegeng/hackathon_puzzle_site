@@ -86,7 +86,6 @@ const PUZZLE_DATA = {
 """
 本地測試：
 
-bash
 .\dev.bat  # Windows
 # 或手動執行 vercel dev
 提交更改：

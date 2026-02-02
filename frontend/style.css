@@ -294,3 +294,5 @@ body, #root {
 .log-line.error { color: #ff5f56; }
 .log-line.success { color: #27c93f; text-shadow: 0 0 5px #27c93f; }
 .log-line.user { color: #fff; opacity: 0.8; }
+
+.hidden { display: none !important; }
