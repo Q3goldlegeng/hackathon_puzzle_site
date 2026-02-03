@@ -1,132 +1,226 @@
-# 🤝 Contributing Guide | 貢獻指南
+# 🤝 團隊協作指南
 
-歡迎參與 Hack Puzzle 專案！本文件適用於**出題者（非程式背景）**與**開發者**。
+歡迎加入 Hack Puzzle 開發團隊！本指南教你怎麼和隊友一起開發。
 
-## 📌 協作原則（All Members）
-
-1.  **不要直接推送到 `main`**：任何改動都必須透過 **Pull Request (PR)** 合併。
-2.  **每個分支只做一件事**：避免混雜多個功能在同一 PR。
-3.  **後端 API 檔案統一放在 `/api` 資料夾**：Vercel 才能正確識別為 Serverless Function。
+**本指南適合**：出題者、前端開發者、後端開發者、所有貢獻者
 
 ---
 
-## 🌿 Branch Rules | 分支規則
+## 📌 基本原則（所有人都要知道）
 
-| 分支名稱 | 用途 | 誰可以推送 |
-|---------|------|-----------|
-| `main` | 穩定版本，僅供演示與正式部署 | 只能透過 PR 合併 |
-| `dev` | 開發整合分支，所有功能先在這裡測試 | 只能透過 PR 合併 |
-| `feature/*` | 新功能開發（例如：`feature/puzzle-day1`）| 開發者自行推送 |
-| `fix/*` | Bug 修復（例如：`fix/ui-terminal-crash`）| 開發者自行推送 |
+1. **不要直接改 `main` 分支**
+   - `main` 是已經上線的版本，很重要
+   - 任何改動都要先在自己的分支測試
 
-**命名範例：**
-- `feature/puzzle-01-story`（出題者：新增第 1 關劇情）
-- `feature/puzzle-01-verify`（開發者：實作第 1 關驗證邏輯）
-- `fix/api-answer-typo`（修正答案錯字）
+2. **一個分支只做一件事**
+   - 不要把多個功能混在一起改
+   - 例如：這個分支只負責新增第 1 關，不要順便改 UI
+
+3. **後端檔案放在 `/api` 資料夾**
+   - Vercel 才能正確執行
+
+4. **改完要「拉 Pull Request」讓隊友審核**
+   - 不要自己偷偷合併程式碼
 
 ---
 
-## 🎯 出題者流程 (Story Writers)
+## 🌿 分支命名規則
 
-**適用對象：** 負責撰寫劇情、提示、答案設計，**不需要碰程式碼**。
+開發時你會用到這些分支：
 
-### Step 1：建立專屬分支
+| 分支名 | 用途 | 例子 |
+|-------|------|------|
+| `main` | 已上線版本（不亂動） | - |
+| `dev` | 開發用主分支（所有功能先測試的地方） | - |
+| `feature/*` | 新增功能 | `feature/puzzle-day1` |
+| `fix/*` | 修復問題 | `fix/answer-typo` |
 
+**怎麼命名新分支**：
+- 清楚、簡短、用英文
+- 例子：`feature/puzzle-01-story`、`fix/terminal-color`
+
+---
+
+## 👥 不同角色怎麼做？
+
+### 🎨 你是「出題者」（寫劇情、題目、答案）
+
+你不需要懂程式，只要會用文字編輯器和 Git。
+
+#### 步驟：
+
+**1. 建立你的工作分支**
+
+打開終端機，輸入：
+```
 git checkout -b feature/puzzle-01-story
-### Step 2：編輯題目檔案
-請在 client/src/puzzles/ 資料夾下，新增或修改對應的 Markdown 檔案。
-例如：client/src/puzzles/p01.md
-```bash
- 題目範本：
-# 第 1 關：啟動序列
-
-## 劇情
-系統遭到入侵，你必須輸入正確的啟動密碼才能進入下一階段。
-
-## 任務
-請輸入 5 個字母的英文單字（全小寫）。
-
-## 提示
-- 提示 1：這個詞與「開始」有關
-- 提示 2：start
-
-## 答案格式
-全小寫，無空格           
-
 ```
 
-### Step 3：提交與推送
-```bash
+這樣你就有了自己的分支，不會影響別人。
+
+**2. 編輯題目檔案**
+
+打開 `frontend/` 資料夾找題目檔案，用文字編輯器改。
+
+例子：
+- 新增或修改題目劇情
+- 調整提示內容
+- 確認答案格式是否正確
+
+**3. 儲存並提交**
+
+改完後，在終端機輸入：
+```
 git add .
 git commit -m "add: puzzle 1 story"
 git push -u origin feature/puzzle-01-story
 ```
-### Step 4：開 Pull Request
-```bash
-    到 GitHub 專案頁面。
-    點擊 "Compare & pull request"。
-    Base branch 選擇 dev。
-    填寫 PR 描述（例如：「新增第 1 關劇情與提示」）。
-    等待團隊審核後合併。
+
+**4. 開「Pull Request」讓隊長審核**
+
+去 GitHub 網頁：
+- 點「Compare & pull request」
+- Base branch 選 `dev`
+- 寫一句說明你做了什麼（例如：「新增第 1 關的劇情和提示」）
+- 點「Create pull request」
+
+等隊長審核通過就完成了！
+
+---
+
+### 💻 你是「開發者」（改程式、修 Bug、做前後端）
+
+#### 步驟：
+
+**1. 先更新 `dev` 分支（確保你的版本最新）**
+
 ```
-
-💻 開發者流程 (Developers)
-適用對象： 負責實作驗證邏輯、UI 調整、Bug 修復。
-
-Workflow | 工作流程
-從 dev 分支建立功能分支：
-```bash
 git checkout dev
 git pull origin dev
+```
+
+**2. 建立你的工作分支**
+
+```
 git checkout -b feature/puzzle-01-verify
 ```
-修改後端驗證邏輯 (api/index.js)：
 
-```javascript
-const PUZZLE_DATA = {
-  "1-1": { answer: "start", next: "1-2" },
-  // 新增關卡請依照此格式...
-};
+或者如果是修 Bug：
 ```
-# 本地測試：
+git checkout -b fix/api-answer-typo
+```
 
-```bash
-.\dev.bat  # Windows
-```
-# 或手動執行 
-```bash 
-vercel dev 
-```
-提交更改：
+**3. 修改程式**
 
-```bash
+例如，你要新增一道題目：
+- 打開 `api/submit.js`
+- 找到 `PUZZLE_DATA` 那個部分
+- 修改或新增項目
+- 儲存
+
+**4. 本地測試**
+
+確保你的改動能正常運作：
+
+在終端機輸入：
+```
+vercel dev
+```
+
+打開 `http://localhost:3000` 手動測試遊戲，確保沒有問題。
+
+測試通過了，按 `Ctrl+C` 停止。
+
+**5. 提交程式碼**
+
+```
 git add .
 git commit -m "feat: add puzzle 1 verify logic"
 git push -u origin feature/puzzle-01-verify
 ```
-發起 PR 到 dev 分支，等待 Code Review。
 
-✍️ Commit Message 規範
-請使用簡潔的英文，遵循以下格式：
+**Commit message 的格式**：
 
-類型	說明	範例
-feat:	新增功能	feat: add puzzle 2 story
-fix:	修復 Bug	fix: correct answer typo in puzzle 3
-docs:	文件更新	docs: update README setup guide
-style:	UI/CSS 調整	style: improve terminal color scheme
-refactor:	重構程式碼	refactor: extract verify logic to utils
-🔍 Code Review Checklist
-提交 PR 前，請自我檢查：
-分支名稱符合規範（feature/* 或 fix/*）
-Commit message 清楚描述改動
-本地測試通過（vercel dev 正常運作）
-沒有將 node_modules 或 .vercel 加入 Git
-PR 描述說明了「改了什麼」與「為什麼改」
+| 類型 | 意思 | 例子 |
+|------|------|------|
+| `feat:` | 新增功能 | `feat: add puzzle 2` |
+| `fix:` | 修復 Bug | `fix: correct answer typo` |
+| `style:` | 改 UI/顏色 | `style: change terminal color` |
+| `docs:` | 改文件 | `docs: update README` |
 
-📚 參考資源
-Git 共同協作開發教學 https://medium.com/%E9%96%8B%E7%99%BC%E9%9A%A8%E7%AD%86/git-%E5%85%B1%E5%90%8C%E5%8D%94%E4%BD%9C%E9%96%8B%E7%99%BC-adac8ed2e949
-GitHub Pull Request 官方文件
+**6. 開 Pull Request**
 
-Vercel Serverless Functions 文件
+去 GitHub：
+- 點「Compare & pull request」
+- Base branch 選 `dev`
+- 寫清楚你改了什麼、為什麼改
+- 點「Create pull request」
 
-有問題隨時在 Discord/群組提問，大家一起解決！🚀
+隊長會檢查你的程式碼，有問題會留言要求修改。通過後就會合併！
+
+---
+
+## 🔍 提交前自我檢查清單
+
+在你開 Pull Request 之前，檢查一下：
+
+- ✅ 分支名稱對嗎？（`feature/*` 或 `fix/*`）
+- ✅ Commit message 清楚嗎？
+- ✅ 在本地測試過了嗎？（`vercel dev` 能正常運作）
+- ✅ 沒有把 `node_modules` 或 `.vercel` 資料夾上傳？
+- ✅ Pull Request 的說明清楚嗎？
+
+---
+
+## 🚨 常見錯誤和解決方法
+
+**問題 1：我在 `main` 分支改程式了，怎麼辦？**
+
+趕快停止，改到 `dev` 分支。
+
+```
+git checkout dev
+git pull origin dev
+git checkout -b feature/my-feature
+# 複製你做的改動，刪除 main 上的改動
+```
+
+**問題 2：我的 Pull Request 有衝突，合併不了？**
+
+這代表你的改動和別人的重疊了。
+
+告訴隊長，或自己解決衝突。
+
+**問題 3：我意外把 `node_modules` 上傳到 Git？**
+
+別擔心，刪除它：
+
+```
+git rm -r node_modules
+git commit -m "remove: node_modules"
+git push
+```
+
+然後新增 `.gitignore` 檔案，確保不會再上傳。
+
+---
+
+## 📚 推薦閱讀
+
+- [Git 新手教學](https://git-scm.com/book/zh-tw/v2)
+- [GitHub Pull Request 官方文件](https://docs.github.com/en/pull-requests)
+- [什麼是 Vercel](https://vercel.com/)
+
+---
+
+## 💬 有問題嗎？
+
+- 問隊長
+- 在專案 Issue 上討論
+- 問 Discord/群組
+
+沒有笨問題，大家一起解決！🚀
+
+---
+
+Made with ❤️ by Hack Puzzle Team

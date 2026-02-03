@@ -1,145 +1,184 @@
 # 🧩 Hack Puzzle
 
-> 專為黑客松設計的復古風終端機解謎網站。  
-> 內建 CRT 雜訊特效、打字機動畫、音效回饋以及隱藏式記事本。
-
-![License](https://img.shields.io/badge/license-MIT-blue.svg)
-![React](https://img.shields.io/badge/React-18.3-61DAFB?logo=react)
-![Vite](https://img.shields.io/badge/Vite-6.0-646CFF?logo=vite)
-![Express](https://img.shields.io/badge/Express-5.2-000000?logo=express)
-![Vercel](https://img.shields.io/badge/Vercel-Deployed-000000?logo=vercel)
+> 黑客松解謎網站 | 復古終端機風格  
+> 給新手的完整教學指南
 
 ---
 
-## 📖 專案簡介
+## 🎯 這是什麼？
 
-**Hack Puzzle** 是一個多天數挑戰的解謎網站，適合黑客松活動使用。玩家需在充滿 80 年代風格的終端機介面中，依序破解 **Day 1 (Q1-Q6)** 與 **Day 2 (Q7-Q10)** 的謎題。
+**Hack Puzzle** 是一個互動解謎遊戲網站。玩家在復古風格的終端機畫面中，一關一關地破解謎題。
 
-### ✨ 特色功能
-- 🖥️ **CRT 螢幕特效**：掃描線、閃爍雜訊與螢光暈影，還原復古質感
-- ⌨️ **打字機動畫**：系統訊息逐字顯示，營造即時運算感
-- 🔊 **互動音效**：內建按鍵打字聲、錯誤/成功提示音效
-- 📝 **隱藏記事本**：側邊滑出式面板，方便記錄解謎線索
-- 🎯 **多天數關卡架構**：Day 1 破關後自動解鎖 Day 2 內容
-- 🚀 **Serverless 後端**：透過 Vercel Functions 進行 API 驗證，無需自架伺服器
+- **Day 1**：6 道基礎題
+- **Day 2**：4 道進階題
 
 ---
 
-## 🏗️ 技術架構
+## 📂 你需要知道的資料夾
 
-| 層級 | 技術棧 |
-|-------|-----------|
-| **前端** | React 18.3 + Vite 6.0 |
-| **後端** | Express 5.2 (Serverless 模式) |
-| **部署** | Vercel |
-| **樣式** | 純 CSS (CRT 特效 + Terminal UI) |
-| **狀態管理** | React Hooks (`useState`, `useEffect`) |
+打開專案資料夾後，你會看到這些重要的地方：
+
+| 資料夾 | 用途 | 簡單說 |
+|--------|------|--------|
+| `api/` | 後端邏輯 | 驗證玩家答案的地方 |
+| `frontend/` | 網頁畫面 | 玩家看到的終端機介面 |
+| `node_modules/` | 外部套件 | 自動下載的工具（不用碰） |
+
+最重要的兩個檔案：
+- **`api/submit.js`** - 儲存所有答案和驗證邏輯
+- **`vercel.json`** - 設定檔，告訴系統怎麼執行
 
 ---
 
-## 📂 專案結構
+## 🚀 第一次使用？這樣做
 
-```bash
-hack-puzzle/
-├── api/                  # 後端 (Vercel Serverless Functions)
-│   └── index.js          # 核心驗證邏輯與關卡答案 (PUZZLE_DATA)
-├── client/               # 前端 (React + Vite)
-│   ├── src/
-│   │   ├── App.jsx       # 遊戲主程式
-│   │   ├── App.css       # CRT 特效與樣式表
-│   │   └── puzzles/      # 題目內容 (Markdown/JSON)
-│   ├── public/           # 前端靜態資源 (音效、圖片)
-│   │   ├── error.mp3     # 錯誤音效
-│   │   ├── keypress.mp3  # 打字音效
-│   │   └── success.mp3   # 成功音效
-│   └── dist/             # 打包輸出 (由 Vite 生成)
-├── public/               # 正式站點靜態目錄 (由腳本自動生成)
-├── deploy_local.bat      # Windows 一鍵打包與啟動腳本
-├── vercel.json           # Vercel 設定檔
-├── CONTRIBUTING.md       # 團隊協作指南
-└── README.md             # 本文件
+### 1️⃣ 安裝必要工具
+
+你的電腦需要有：
+- **Node.js** (從 https://nodejs.org 下載)
+- **Git** (從 https://git-scm.com 下載)
+
+### 2️⃣ 開啟終端機，輸入這些指令
+
+第一個指令（全球安裝一次就夠）：
 ```
-🚀 快速開始
-環境需求
-Node.js v18+
-
-Vercel CLI (全域安裝: npm i -g vercel)
-
-安裝步驟
-```bash
-# Clone 專案
-git clone https://github.com/Q3goldlegeng/hackathon_puzzle_site.git
-cd hack-puzzle
+npm install -g vercel
 ```
-# 安裝後端依賴
-```bash
+
+然後回到你的專案資料夾，輸入：
+```
 npm install
 ```
-# 安裝前端依賴
-```bash
-cd client
-npm install
-cd ..
-```
-# 本地開發
-方法 A：一鍵啟動 (Windows 推薦 ⭐)
-直接雙擊根目錄下的 deploy_local.bat，或者在終端機執行：
 
-```bash
-.\deploy_local.bat
-(此腳本會自動執行 Build 前端 → 搬運檔案 → 啟動伺服器)
-```
-方法 B：手動啟動 (Mac/Linux)
-bash
-# 打包前端
-```bash
-cd client && npm run build && cd ..
-```
+**完成了！** ✅
 
-# 複製檔案至 public
-```bash
-rm -rf public && mkdir public
-cp -r client/dist/* public/
-```
+---
 
-# 啟動 Vercel 開發環境
-```bash
+## 💻 怎麼開始開發？
+
+### 最重要的一步：啟動開發伺服器
+
+在專案資料夾打開終端機，輸入：
+```
 vercel dev
 ```
-啟動後，請打開瀏覽器訪問：👉 http://localhost:3000
 
-🎮 遊玩說明
-閱讀任務：仔細閱讀終端機顯示的劇情與提示
-輸入答案：在下方游標處輸入你的答案（格式：全小寫、無空格）
-送出確認：按下 Enter 鍵送出
-解鎖進度：答對即可進入下一關，答錯會收到錯誤提示
-使用筆記：點擊右上角 [OPEN_NOTES] 開啟筆記本記錄線索
-通關條件：完成 Day 1 (Q1-Q6) 後，將自動解鎖 Day 2 (Q7-Q10)
-隱藏彩蛋 🥚試著輸入以下指令看看會發生什麼事：help - 顯示提示clear - 清空畫面whoami - 顯示目前用戶身分(未完成)
+你會看到訊息出現，說 `Ready! Available at http://localhost:3000`
 
-🛠️ 開發指南
-新增關卡
-請編輯 api/index.js 並在 PUZZLE_DATA 物件中新增項目：
+打開瀏覽器，進入 `http://localhost:3000` 就看到你的網站了！
 
-javascript
-const PUZZLE_DATA = {
-  "1-1": { answer: "start", next: "1-2" },
-  "1-2": { answer: "hello", next: "1-3" },
-  // 在此處新增更多關卡...
-};
-自訂介面
-顏色主題：修改 client/src/App.css 中的 CSS 變數
+**這一步很重要。** 不要直接點開 HTML 檔案，一定要用 `vercel dev`，這樣前端和後端才能正常溝通。
 
-更換音效：替換 client/public/ 中的 .mp3 檔案
+---
 
-打字速度：調整 <Typewriter /> 組件中的 speed 參數
+## ✏️ 我想改東西，怎麼改？
 
+### 修改「畫面」（HTML、CSS、顏色等）
 
-致謝：感謝所有參與測試與貢獻的夥伴！🚀
+1. 打開 `frontend/` 資料夾
+2. 找到你要改的檔案（通常是 `.html` 或 `.css`）
+3. 用文字編輯器修改
+4. 儲存檔案
+5. 瀏覽器會自動重新整理，看到你的改變
 
-📞 聯絡資訊
-團隊負責人: Daniel Wang
-GitHub: @Q3goldlegeng
-問題回報: 提交 Issue
+**例子**：想改終端機背景色？
+- 打開 CSS 檔案，找到顏色設定，改成你喜歡的顏色，存檔完成
 
-Made with ❤️ in Taiwan 🇹🇼
+### 修改「答案和驗證邏輯」（後端）
+
+1. 打開 `api/submit.js`
+2. 找到 `PUZZLE_DATA` 這個部分
+3. 修改答案、新增題目等
+4. 儲存檔案
+5. 終端機會自動重啟後端，你重新整理網頁就會看到改變
+
+**如果檔案沒自動重新載入**
+- 停止 `vercel dev`（在終端機按 `Ctrl+C`）
+- 重新執行 `vercel dev`
+- 在瀏覽器手動重新整理（按 F5）
+
+---
+
+## 🤔 前端和後端怎麼溝通？
+
+簡單版本：
+1. 玩家在網頁輸入答案，按 Enter
+2. 前端 JavaScript 把答案傳給後端
+3. 後端檢查答案，回傳是否正確
+4. 前端收到回應，更新網頁顯示
+
+**你不需要寫程式就能理解這個流程。** 只要知道：
+- 改畫面 → 改 `frontend/` 的檔案
+- 改答案、驗證邏輯 → 改 `api/submit.js`
+
+---
+
+## 🐛 常見問題
+
+**Q: 執行 `vercel dev` 出現紅色錯誤？**
+
+常見原因和解決方法：
+1. 沒安裝 Node.js → 去 https://nodejs.org 下載安裝
+2. 沒執行過 `npm install` → 在專案資料夾執行一次
+3. 連接埠被佔用 → 用 `vercel dev --listen 3001` 改成其他埠
+4. 一直出現錯誤 → 刪除 `node_modules` 資料夾，重新執行 `npm install`
+
+**Q: 改了檔案，但網頁沒有更新？**
+
+手動重新整理瀏覽器（按 `F5` 或 `Ctrl+Shift+R`）
+
+**Q: 我想停止開發伺服器**
+
+在終端機按 `Ctrl+C`
+
+**Q: 我想再開啟開發伺服器**
+
+重新執行 `vercel dev`
+
+**Q: `node_modules` 資料夾佔空間很大，可以刪除嗎？**
+
+可以。但如果刪除了，下次要執行 `npm install` 重新下載
+
+**Q: 我怎麼知道後端是否正常工作？**
+
+1. 打開瀏覽器的開發者工具（按 F12）
+2. 在遊戲輸入答案，按 Enter
+3. 切換到「Network」標籤
+4. 如果看到「verify」這個請求，代表後端有收到
+
+---
+
+## ☁️ 完成後怎麼上線？
+
+當你的遊戲做好了，想讓全世界的人都能玩：
+
+在終端機執行：
+```
+vercel
+```
+
+系統會問你一些問題，全部按 Enter 用預設值就好。
+
+跑完後，你會得到一個 `Production: https://...` 的網址。
+
+**這就是你的線上版網站！** 分享給朋友吧 🎉
+
+---
+
+## 📚 新手必讀資源
+
+- [什麼是 Node.js？](https://nodejs.org/)
+- [什麼是 Vercel？](https://vercel.com/)
+- [Git 和 GitHub 新手入門](https://git-scm.com/book/zh-tw/v2)
+
+---
+
+## 📞 遇到問題？
+
+- 在 GitHub 開 Issue 回報 Bug
+- 和你的隊友或隊長討論
+
+---
+
+Made with ❤️ by Hack Puzzle Team  
+**Taiwan 🇹🇼**
